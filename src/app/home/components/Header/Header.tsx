@@ -1,6 +1,6 @@
-import WaveIcon from "@/components/icons/WaveIcon"
+import WaveIcon from "../icons/WaveIcon";
 
-export function Header() {
+const Header = () => {
   return (
   <div className="text-center"> 
     <div className="flex justify-center animate-bounce"> 
@@ -13,3 +13,4 @@ export function Header() {
   </div>
   )
 }
+export default Header;
