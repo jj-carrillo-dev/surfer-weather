@@ -6,7 +6,6 @@ const coastalCities = [
   { name: 'Cuxhaven', lat: 53.8604, lon: 8.6946 },
   { name: 'Kiel', lat: 54.3233, lon: 10.1394 },
   { name: 'Rostock', lat: 54.0924, lon: 12.1158 },
-  { name: 'Lübeck', lat: 53.8655, lon: 10.6865 },
 ];
 
 interface CityButtonsProps {
