@@ -8,6 +8,8 @@ import TideChart from './components/TideChart';
 const WeatherDataDisplay = ({ lat, lon, locationName }) => {
     const { weatherData, loading, error } = useWeatherController (lat, lon);
 
+    const currentYear = new Date().getFullYear();
+
     if (loading) {
         return (
             <div className="flex items-center justify-center p-4">
@@ -49,10 +51,18 @@ const WeatherDataDisplay = ({ lat, lon, locationName }) => {
                     ))}
                 </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-1 gap-8">
                     <ForecastDetailCard detail={weatherData.detail} />
-                    <TideChart tideData={weatherData.tide} />
+
+                {/* * This component is commented out because the free Open-Meteo API
+                 * does not provide tide data. A separate API (e.g., WorldTides)
+                 * would be needed to display this information.
+                 */}
+                {weatherData.tide.length > 0 && <TideChart tideData={weatherData.tide} />}
                 </div>
+                <footer className="w-full text-center text-gray-500 dark:text-gray-400 p-4 mt-8">
+                © {currentYear} Surf Forecast App
+              </footer>
             </div>
         </div>
     );
