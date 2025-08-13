@@ -1,32 +1,40 @@
-import { NextResponse } from 'next/server';
-
-export async function GET(request: Request) {
+export async function GET(request) {
     const { searchParams } = new URL(request.url);
-    const latitude = searchParams.get('lat');
-    const longitude = searchParams.get('lon');
+    const lat = searchParams.get('lat');
+    const lon = searchParams.get('lon');
 
-    if (!latitude || !longitude) {
-        return NextResponse.json({ error: 'Latitude and longitude are required' }, { status: 400 });
+    if (!lat || !lon) {
+        console.error('API Error: Latitude and longitude are required.');
+        return new Response(JSON.stringify({ error: 'Latitude and longitude are required.' }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json' },
+        });
     }
 
-    const openMeteoUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,temperature_2m_min&timezone=Europe%2FBerlin`;
-
     try {
-        const response = await fetch(openMeteoUrl);
+        const marineApiUrl = `https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lon}&hourly=swell_wave_height,swell_wave_direction,swell_wave_period,sea_surface_temperature&forecast_days=4`;
+
+        console.log('Fetching from URL:', marineApiUrl);
+
+        const response = await fetch(marineApiUrl);
+
+        if (!response.ok) {
+            const errorBody = await response.text();
+            console.error('Open-Meteo API Error:', response.status, errorBody);
+            throw new Error(`Failed to fetch data from Open-Meteo API: ${response.statusText}`);
+        }
+
         const data = await response.json();
 
-        const formattedData = data.daily.time.slice(0, 4).map((date, index) => {
-            const dayNames = ['Today', 'Tomorrow', 'Day 3', 'Day 4'];
-
-            return {
-                day: dayNames[index],
-                tempRange: `${Math.round(data.daily.temperature_2m_max[index])}°C / ${Math.round(data.daily.temperature_2m_min[index])}°C`,
-            };
+        return new Response(JSON.stringify(data), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
         });
-
-        return NextResponse.json(formattedData);
     } catch (error) {
-        console.error('API Fetch Error:', error);
-        return NextResponse.json({ error: 'Failed to fetch weather data' }, { status: 500 });
+        console.error('Server-side Error:', error);
+        return new Response(JSON.stringify({ error: error.message }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json' },
+        });
     }
 }
