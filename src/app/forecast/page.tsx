@@ -1,36 +1,36 @@
 "use client";
 
-import React, { useState } from 'react';
-import Header from './components/Header/Header';
+import { useState } from 'react';
 import SearchBar from './components/SearchBar/SearchBar';
 import WeatherDataDisplay from './components/WeatherDataDisplay/WeatherDataDisplay';
+import CityButtons from './components/CityButtons'; 
 
 const ForecastPage = () => {
-  const [selectedLocation, setSelectedLocation] = useState({
-    lat: '53.5511', // Default to Hamburg's coordinates
-    lon: '9.9937',
-    name: 'Hamburg'
-  });
+    const [selectedLocation, setSelectedLocation] = useState(null);
 
-  return (
-    <div className="flex flex-col min-h-screen bg-gray-100 dark:bg-gray-900">
-      <div className="bg-gradient-to-b from-blue-600 to-blue-800 py-8">
-        <div className="container mx-auto px-4">
-          <Header />
+    const handleSelectLocation = (location) => {
+        setSelectedLocation(location);
+    };
+
+    return (
+        <div className="min-h-screen bg-gray-100 p-8 dark:bg-gray-900">
+            <div className="max-w-4xl mx-auto">
+                <h1 className="text-4xl font-bold text-center text-gray-800 dark:text-gray-100 mb-8">
+                    Surf Forecast
+                </h1>
+                <div className="relative mb-8">
+                    <SearchBar onSelectLocation={handleSelectLocation} />
+                    {/* Add the new CityButtons component here */}
+                    <CityButtons onSelect={handleSelectLocation} />
+                </div>
+                <WeatherDataDisplay
+                    lat={selectedLocation?.lat}
+                    lon={selectedLocation?.lon}
+                    locationName={selectedLocation?.name}
+                />
+            </div>
         </div>
-      </div>
-      <main className="flex-grow flex justify-center py-8 px-4">
-        <div className="w-full max-w-4xl space-y-8">
-          <SearchBar onSelectLocation={setSelectedLocation} />
-          <WeatherDataDisplay
-            lat={selectedLocation.lat}
-            lon={selectedLocation.lon}
-            locationName={selectedLocation.name}
-          />
-        </div>
-      </main>
-    </div>
-  );
+    );
 };
 
 export default ForecastPage;
