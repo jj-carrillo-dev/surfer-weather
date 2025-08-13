@@ -1,11 +1,11 @@
 "use client";
 
-import { useTranslation } from 'react-i18next'; // Import useTranslation
+import { useTranslation } from 'react-i18next';
 import Header from "./components/Header";
 import WeatherCard from "./components/WeatherCard";
 
 const HomeView = () => {
-  const { t, i18n } = useTranslation(); // Initialize the hook
+  const { t, i18n } = useTranslation();
 
   return (
     <div className="w-full max-w-md space-y-8">

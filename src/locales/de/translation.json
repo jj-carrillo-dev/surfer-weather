@@ -16,6 +16,7 @@
   "surfer_weather": "Surfer Wetter",
   "germany": "Deutschland",
   "loading_forecast": "Vorhersage wird geladen...",
+  "placeholder_search_bar": "Geben Sie eine deutsche Stadt ein (z.B. Hamburg)",
   "no_location_selected": "Kein Ort ausgewählt. Bitte verwenden Sie die Suchleiste.",
   "no_marine_data_text": "Keine marinen Daten für {{locationName}} verfügbar. Bitte wählen Sie eine Küstenstadt.",
   "weather_forecast_for": "Wettervorhersage für {{locationName}}",
@@ -25,5 +26,9 @@
   "direction": "Richtung",
   "water_temperature": "Wassertemperatur",
   "wind": "Wind",
-  "speed": "Geschwindigkeit"
+  "speed": "Geschwindigkeit",
+  "error_fetch_marine_data": "Abrufen der Meeresdaten fehlgeschlagen.",
+  "error_fetch_weather_forecast": "Abrufen der Wettervorhersagedaten fehlgeschlagen.",
+  "no_weather_data_available": "Keine Wetterdaten für diesen Ort verfügbar.",
+  "error_try_again": "Abrufen der Wetterdaten fehlgeschlagen. Bitte versuchen Sie es erneut."
 }

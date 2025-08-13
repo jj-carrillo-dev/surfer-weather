@@ -1,5 +1,3 @@
-// src/app/forecast/page.tsx
-
 "use client";
 
 import { useState } from 'react';
@@ -29,7 +27,7 @@ const ForecastPage = () => {
                     {t('app_name')}
                 </h1>
                 <div className="relative mb-8">
-                    <SearchBar onSelectLocation={handleSelectLocation} />
+                    <SearchBar t={t} onSelectLocation={handleSelectLocation} />
                     <h2 className="text-lg font-semibold text-center text-gray-700 dark:text-gray-300 mt-6 mb-4">
                         {t('coastal_city_title')}
                     </h2>

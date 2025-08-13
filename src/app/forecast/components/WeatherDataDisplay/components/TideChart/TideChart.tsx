@@ -1,5 +1,3 @@
-// src/components/WeatherDataDisplay/components/TideChart/TideChart.tsx
-
 import TideItem from "./components/TideItem";
 
 

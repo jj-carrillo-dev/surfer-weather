@@ -16,6 +16,7 @@
   "surfer_weather": "Surfer Weather",
   "germany": "Germany",
   "loading_forecast": "Loading forecast...",
+  "placeholder_search_bar": "Enter a German city (e.g., Hamburg)",
   "no_location_selected": "No location selected. Please use the search bar.",
   "no_marine_data_text": "No marine data available for {{locationName}}. Please select a coastal city.",
   "weather_forecast_for": "Weather Forecast for {{locationName}}",
@@ -25,5 +26,9 @@
   "direction": "Direction",
   "water_temperature": "Water Temperature",
   "wind": "Wind",
-  "speed": "Speed"
+  "speed": "Speed",
+  "error_fetch_marine_data": "Failed to fetch marine data.",
+  "error_fetch_weather_forecast": "Failed to fetch weather forecast data.",
+  "no_weather_data_available": "No weather data available for this location.",
+  "error_try_again": "Failed to fetch weather data. Please try again."
 }

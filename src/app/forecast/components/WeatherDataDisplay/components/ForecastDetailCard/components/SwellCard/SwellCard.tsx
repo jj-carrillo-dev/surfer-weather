@@ -1,9 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWaveSquare } from '@fortawesome/free-solid-svg-icons';
-import { useTranslation } from 'react-i18next'; // Import useTranslation
+import { useTranslation } from 'react-i18next'; 
 
 const SwellCard = ({ swell }) => {
-  const { t } = useTranslation(); // Initialize the hook
+  const { t } = useTranslation();
 
   return (
     <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg shadow-inner">

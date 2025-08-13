@@ -14,7 +14,7 @@ i18n
         translation: de,
       },
     },
-    lng: 'en', // Set the default language to German
+    lng: 'de', // Set the default language to German
     fallbackLng: 'en', // fallback language
     interpolation: {
       escapeValue: false, // react already safes from xss

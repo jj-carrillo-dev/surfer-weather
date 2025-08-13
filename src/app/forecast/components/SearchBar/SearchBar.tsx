@@ -5,11 +5,11 @@ import SearchIcon from './components/SearchIcon';
 import SuggestionsList from './components/SuggestionsList';
 import useSearchController from '@/app/hooks/useSearchController';
 
-const SearchBar = ({ onSelectLocation }) => {
+const SearchBar = ({ t, onSelectLocation }) => {
   const {
     location,
     suggestions,
-    isSearching, // isSearching is now managed by the hook
+    isSearching,
     handleInputChange,
     handleSuggestionClick,
     handleSearchClick,
@@ -20,7 +20,7 @@ const SearchBar = ({ onSelectLocation }) => {
       <div className="flex items-center p-2 pl-4 bg-white rounded-xl shadow-lg border border-gray-200">
         <input
           type="text"
-          placeholder="Enter a German city (e.g., Hamburg)"
+          placeholder={t('placeholder_search_bar')}
           value={location}
           onChange={handleInputChange}
           className="flex-grow p-2 text-gray-700 placeholder-gray-400 focus:outline-none"
@@ -31,7 +31,7 @@ const SearchBar = ({ onSelectLocation }) => {
         >
           {isSearching ? (
             <div className="spinner-border text-white w-5 h-5" role="status">
-              <span className="sr-only">Loading...</span>
+              <span className="sr-only">{t('loading_forecast')}...</span>
             </div>
           ) : (
             <SearchIcon className="w-5 h-5" />

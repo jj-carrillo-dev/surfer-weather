@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslation } from 'react-i18next'; // Import useTranslation
+import { useTranslation } from 'react-i18next'; 
 import useWeatherController from '@/app/hooks/useWeatherController';
 import ForecastCard from './components/ForecastCard';
 import ForecastDetailCard from './components/ForecastDetailCard';
@@ -8,7 +8,7 @@ import TideChart from './components/TideChart';
 
 const WeatherDataDisplay = ({ lat, lon, locationName }) => {
     const { t } = useTranslation(); // Initialize the translation hook
-    const { weatherData, loading, error } = useWeatherController(lat, lon);
+    const { weatherData, loading, error } = useWeatherController(lat, lon, t);
     const currentYear = new Date().getFullYear();
 
     if (loading) {
