@@ -5,9 +5,6 @@ export async function GET(request: Request) {
     const latitude = searchParams.get('lat');
     const longitude = searchParams.get('lon');
 
-    // Add this console log to check the received parameters
-    console.log('API received:', { latitude, longitude });
-
     if (!latitude || !longitude) {
         return NextResponse.json({ error: 'Latitude and longitude are required' }, { status: 400 });
     }

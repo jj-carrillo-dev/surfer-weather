@@ -1,3 +1,3 @@
-import WeatherDataDisplay from './ForecastCard';
+import ForecastCard from './ForecastCard';
 
-export default WeatherDataDisplay;
+export default ForecastCard;

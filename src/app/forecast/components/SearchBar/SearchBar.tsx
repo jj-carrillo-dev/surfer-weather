@@ -2,13 +2,14 @@
 
 import React, { useState, useEffect } from 'react';
 import SearchIcon from './components/SearchIcon';
+import SuggestionsList from './components/SuggestionsList'; // Import the new component
 
 const SearchBar = ({ onSelectLocation }) => {
   const [location, setLocation] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
 
-  // Debounce function to prevent too many API calls
   const debounce = (func, delay) => {
     let timeout;
     return (...args) => {
@@ -46,14 +47,20 @@ const SearchBar = ({ onSelectLocation }) => {
   const debouncedFetchSuggestions = debounce(fetchSuggestions, 300);
 
   useEffect(() => {
-    if (location) {
+    if (isTyping && location) {
       debouncedFetchSuggestions(location);
-    } else {
+    } else if (!location) {
       setSuggestions([]);
     }
-  }, [location]);
+  }, [location, isTyping]);
+
+  const handleInputChange = (e) => {
+    setIsTyping(true);
+    setLocation(e.target.value);
+  };
 
   const handleSuggestionClick = (suggestion) => {
+    setIsTyping(false);
     onSelectLocation({
       lat: suggestion.latitude,
       lon: suggestion.longitude,
@@ -65,6 +72,7 @@ const SearchBar = ({ onSelectLocation }) => {
 
   const handleSearchClick = () => {
     if (suggestions.length > 0) {
+      setIsTyping(false);
       const firstSuggestion = suggestions[0];
       onSelectLocation({
         lat: firstSuggestion.latitude,
@@ -83,7 +91,7 @@ const SearchBar = ({ onSelectLocation }) => {
           type="text"
           placeholder="Enter a German city (e.g., Hamburg)"
           value={location}
-          onChange={(e) => setLocation(e.target.value)}
+          onChange={handleInputChange}
           className="flex-grow p-2 text-gray-700 placeholder-gray-400 focus:outline-none"
         />
         <button
@@ -93,21 +101,7 @@ const SearchBar = ({ onSelectLocation }) => {
           <SearchIcon className="w-5 h-5" />
         </button>
       </div>
-
-      {suggestions.length > 0 && (
-        <ul className="absolute z-10 w-full mt-2 bg-white rounded-xl shadow-lg border border-gray-200">
-          {suggestions.map((suggestion) => (
-            <li key={suggestion.id}>
-              <button
-                onClick={() => handleSuggestionClick(suggestion)}
-                className="block w-full text-left p-4 hover:bg-gray-100 transition-colors duration-200"
-              >
-                {suggestion.name}, {suggestion.country_code}
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
+      <SuggestionsList suggestions={suggestions} onSelect={handleSuggestionClick} />
     </div>
   );
 };
