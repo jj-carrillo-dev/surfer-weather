@@ -27,7 +27,7 @@ This application exclusively uses the **Open-Meteo API** for all weather and mar
   - **Open-Meteo Marine API:** Provides marine-specific data like swell height, period, and sea surface temperature.
   - **Open-Meteo Weather API:** Provides daily weather forecasts, including temperature ranges.
 
-> **Note on Tides:** The Open-Meteo API does not provide tide data. As a result, this feature was intentionally omitted from the final application to adhere to the API constraint.
+> **Note on Tides and Winds:** The Open-Meteo API does not provide tide data. As a result, this feature was intentionally omitted from the final application to adhere to the API constraint.
 
 #### **Getting Started**
 

@@ -5,6 +5,7 @@ import WindCard from './components/WindCard';
 import WaterTempCard from './components/WaterTempCard';
 
 const ForecastDetailCard = ({ detail }) => {
+
   return (
     <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
       <div className="flex items-center mb-4 space-x-3">
@@ -13,7 +14,9 @@ const ForecastDetailCard = ({ detail }) => {
       </div>
       <div className="space-y-6">
         <SwellCard swell={detail.swell} />
-        <WindCard wind={detail.wind} />
+        {detail.wind.hasData &&
+          <WindCard wind={detail.wind} />
+        }
         <WaterTempCard waterTemp={detail.waterTemp} />
       </div>
     </div>

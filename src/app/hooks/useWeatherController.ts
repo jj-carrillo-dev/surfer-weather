@@ -26,6 +26,7 @@ const processApiData = (
 
     const currentDetail = {
         wind: {
+            hasData: false,
             speed: "N/A", 
             direction: "N/A",
         },
