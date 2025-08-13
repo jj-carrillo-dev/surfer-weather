@@ -1,30 +1,64 @@
-// src/app/forecast/components/WeatherDataDisplay/index.tsx
+"use client";
 
-import React from 'react';
+import { useEffect, useState } from 'react';
 import ForecastCard from './components/ForecastCard';
 
-// Sample data for the forecast cards
-const sampleForecastData = [
-  { day: 'Today', tempRange: '20°C / 12°C' },
-  { day: 'Tomorrow', tempRange: '22°C / 14°C' },
-  { day: 'Day 3', tempRange: '18°C / 10°C' },
-];
+const WeatherDataDisplay = ({ lat, lon, locationName }) => {
+  const [weatherData, setWeatherData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-const WeatherDataDisplay = () => {
+  useEffect(() => {
+    const fetchWeather = async () => {
+      if (!lat || !lon) {
+        setLoading(false);
+        setError('Please select a location from the search bar.');
+        return;
+      }
+      setLoading(true);
+      setError(null);
+      
+      try {
+        const res = await fetch(`/api/weather?lat=${lat}&lon=${lon}`);
+        if (!res.ok) {
+          throw new Error('Failed to fetch weather data');
+        }
+        const data = await res.json();
+        setWeatherData(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchWeather();
+  }, [lat, lon]);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center p-4">
+        <div className="text-xl text-gray-600 dark:text-gray-400">Loading forecast...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div className="text-red-500 text-center">{error}</div>;
+  }
+
+  if (!weatherData || weatherData.length === 0) {
+    return <div className="text-gray-500 text-center">No forecast data available for {locationName}.</div>;
+  }
+
   return (
-    <div className="p-8 bg-white rounded-xl shadow-lg">
-      <h2 className="text-3xl font-bold text-center text-blue-900">
-        Forecast for Your Location
+    <div>
+      <h2 className="text-3xl font-bold text-center mb-6 text-gray-800 dark:text-gray-100">
+        Weather Forecast for {locationName}
       </h2>
-      <p className="text-center text-gray-600 mt-2 mb-8">
-        Detailed surf conditions for the next few days.
-      </p>
-
-      {/* This grid will hold the daily forecast cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {sampleForecastData.map((forecast) => (
-          <ForecastCard 
-            key={forecast.day}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {weatherData.map((forecast, index) => (
+          <ForecastCard
+            key={index}
             day={forecast.day}
             tempRange={forecast.tempRange}
           />

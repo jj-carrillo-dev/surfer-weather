@@ -1,23 +1,19 @@
-"use client";
-
+import Link from 'next/link';
 import React from 'react';
-import { useRouter } from 'next/navigation';
 
 const Header = () => {
-  const router = useRouter();
-  
   return (
-    <header className="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-4 text-center rounded-lg shadow-xl relative">
-      <div className="absolute left-4 top-1/2 -translate-y-1/2">
-        <button
-          onClick={() => router.back()}
-          className="text-white hover:text-blue-200 transition-colors duration-200"
-        >
-          &larr; Back
+    <div className="flex items-center justify-between text-white relative">
+      <Link href="/">
+        <button className="flex items-center px-4 py-2 font-medium transition-colors duration-200 hover:text-gray-200">
+          ← Back
         </button>
+      </Link>
+      <div className="absolute inset-x-0 flex justify-center">
+        <h1 className="text-xl font-bold">Detailed Surf Forecast</h1>
       </div>
-      <h1 className="text-2xl font-bold tracking-wide">Detailed Surf Forecast</h1>
-    </header>
+      <div className="px-4 py-2"></div> {/* Invisible spacer to balance the flex layout */}
+    </div>
   );
 };
 
